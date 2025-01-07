@@ -19,7 +19,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Cyber security student
 twitter_username: username
 github_username: CptHilda0079
-minimal_mistakes_skin: neon
+minimal_mistakes_skin: dark
 search: true
 
 # Build settings
@@ -57,7 +57,7 @@ plugins:
 
 author:
   name   : "Ben Hawarden"
-  avatar : "/assets/images/Profile_Pic"
+  avatar : "/assets/images/Profile_Pic.jpg"
   bio    : "Cyber security student"
   links:
     - label: "GitHub"
