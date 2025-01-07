@@ -65,19 +65,20 @@ author:
       url: "https://github.com/CptHilda0079"
     - label: "LinkedIn"
       icon: "fa-brands fa-linkedin"
-      url: "https://uk.linkedin.com/in/ben-hawarden-8a0a98a1?original_referer=https%3A%2F%2Fwww.google.com%2F"
+      url: "https://linkedin.com/in/ben-hawarden-8a0a98a1/"
+    - label: "HackTheBox"
+      icon: <img src="https://img.shields.io/badge/HackTheBox-111927?style=for-the-badge&logo=Hack%20The%20Box&logoColor=9FEF00" />
+      url: "https://app.hackthebox.com/users/323471"
+    - label: "TryHackMe"
+      icon: ""
+      url: ""
+
 
 footer:
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
 
 defaults:
   # _posts
