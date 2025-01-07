@@ -1,5 +1,5 @@
 ---
-title: "Post: Agent Sudo"
+title: "TryHackMe: Agent Sudo"
 categories:
   - Blog
   - TryHackMe
