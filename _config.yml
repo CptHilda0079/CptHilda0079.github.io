@@ -13,15 +13,13 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: MM
-email:
+title: Ben Hawarden Portfolio
+email: benhawarden@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Cyber security student
 twitter_username: username
-github_username: username
-minimal_mistakes_skin: default
+github_username: CptHilda0079
+minimal_mistakes_skin: neon
 search: true
 
 # Build settings
@@ -58,22 +56,16 @@ plugins:
   - jekyll-include-cache
 
 author:
-  name   : "First Lastname"
-  avatar : "/assets/images/bio-photo.jpg"
-  bio    : "My awesome biography constrained to a sentence or two goes here."
+  name   : "Ben Hawarden"
+  avatar : "/assets/images/Profile_Pic"
+  bio    : "Cyber security student"
   links:
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      url: "https://"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+      url: "https://github.com/CptHilda0079"
+    - label: "LinkedIn"
+      icon: "fa-brands fa-linkedin"
+      url: "https://uk.linkedin.com/in/ben-hawarden-8a0a98a1?original_referer=https%3A%2F%2Fwww.google.com%2F"
 
 footer:
   links:
