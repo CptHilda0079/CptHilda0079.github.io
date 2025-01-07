@@ -21,6 +21,7 @@ tags:
 
 ## Introduction
 ![image](https://github.com/user-attachments/assets/7122f24f-3555-4bc9-8181-815eab81ecfc)
+
 You found a secret server located under the deep sea. Your task is to hack inside the server and reveal the truth.
 
 ##  Nmap scan results
