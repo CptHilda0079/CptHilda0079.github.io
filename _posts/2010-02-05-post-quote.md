@@ -1,7 +1,8 @@
 ---
-title: "Post: Quote"
+title: "Post: Agent Sudo"
 categories:
   - Blog
+  - -TryHackMe
 tags:
   - Post Formats
   - quote
