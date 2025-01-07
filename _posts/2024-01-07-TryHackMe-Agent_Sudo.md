@@ -26,7 +26,7 @@ You found a secret server located under the deep sea. Your task is to hack insid
 
 ##  Nmap scan results
 The Nmap scan returns 3 open ports
-```
+```bash
 └─$ nmap -sV 10.10.83.69
 Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-01-07 17:34 GMT
 Nmap scan report for 10.10.83.69
