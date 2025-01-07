@@ -57,7 +57,7 @@ plugins:
 
 author:
   name   : "Ben Hawarden"
-  avatar : "/assets/images/Profile_Pic.jpg"
+  avatar : "/assets/images/Profile_Pic.JPG"
   bio    : "Cyber security student"
   links:
     - label: "GitHub"
