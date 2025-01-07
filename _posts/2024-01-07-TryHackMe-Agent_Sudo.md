@@ -4,8 +4,8 @@ categories:
   - Blog
   - TryHackMe
 tags:
-  - Post Formats
-  - quote
+  - pwn
+  - root
 ---
 
 Using Nmap, we can scan to find open ports on the system
