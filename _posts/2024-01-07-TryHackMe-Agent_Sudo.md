@@ -1,7 +1,6 @@
 ---
 title: "TryHackMe: Agent Sudo"
 categories:
-  - Blog
   - TryHackMe
 tags:
   - pwn
@@ -26,7 +25,7 @@ I began by enumerating port 80 (HTTP) via the web browser
 
 ![image](https://github.com/user-attachments/assets/c1f4a4be-b945-4a8a-9799-75b6178b16f8)
 
-Agent R is telling us to change our user-agent to our own codename. We can do this by changing the user-agent tag in burpsuite or using curl. For this I used curl with the user-agent "R".
+Agent R is telling us to change our user agent to our codename. We can do this by changing the user-agent tag in Burpsuite or curl. For this, I used curl with the user agent "R".
 ```
 └─$ curl -A R 10.10.83.69
 What are you doing! Are you one of the 25 employees? If not, I going to report this incident
@@ -54,7 +53,7 @@ for letter in {A..Z}; do
     curl -L -A $letter 10.10.83.69; echo "Letter: $letter"
 done
 ```
-Running and evaluating the results from the script, we can see that user-agent of Agent C gives a different repsonce to the others.
+Running and evaluating the results from the script, we can see that the user-agent of Agent C gives a different repsonce to the others.
 ```
 Attention chris, <br><br>
 Do you still remember our deal? Please tell agent J about the stuff ASAP. Also, change your god damn password, is weak! <br><br>
@@ -162,7 +161,7 @@ Everything is Ok
 Size:       86
 Compressed: 280 
 ```
-We can now access the content of the file. Accessing this we find a "To_agentR.txt" file.
+We can now access the file content. Accessing this we find a "To_agentR.txt" file.
 ```
 └─$ cat To_agentR.txt
 Agent C,
@@ -175,7 +174,7 @@ This looks like a base64 ciphertext
 └─$ echo "QXJlYTUx" | base64 -d
 Area51
 ```
-Area51 seems to be our password. We can now look into the alien picture.
+Area51 is our password. We can now look into the alien picture.
 ```
 └─$ steghide extract -sf cute-alien.jpg
 Enter passphrase:
