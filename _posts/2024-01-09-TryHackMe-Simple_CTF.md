@@ -66,12 +66,13 @@ We got a hit! Viewing /simple in our browser we are redirected to a new page:
 
 ![image](https://github.com/user-attachments/assets/783d5baa-0c0e-407b-a755-e566832dbef6)
 
-Looking through this page I found the version number of simple
+Looking through this page I found the version number of simple.
 
 ![image](https://github.com/user-attachments/assets/ba14ea98-d4b2-489a-8ac2-e5770d218c33)
 
 Searching "CMS Made Simple version 2.2.8" online, we find https://www.exploit-db.com/exploits/46635 CVE:2019-9053 which allows us to perform an SQL injection. This indicates that there will be a login page which we will try to find now.
-We can use Gobuster again, however instead I tried http://10.10.133.211/simple/login, with no result then http://10.10.133.211/simple/admin, which was successful and redirected me to a login page: 
+We can use Gobuster again, however, instead, I tried http://10.10.133.211/simple/login, with no result then http://10.10.133.211/simple/admin, which was successful and redirected me to a login page: 
 
 ![image](https://github.com/user-attachments/assets/f9dc964f-ef3a-450b-b133-551aeb6ffdde)
+
 
