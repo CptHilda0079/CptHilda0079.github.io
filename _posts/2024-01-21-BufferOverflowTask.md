@@ -46,7 +46,7 @@ As we can see, the stack has been overwritten with a bunch of A values, using th
 ![image](https://github.com/user-attachments/assets/a13e976c-f8c4-4fa4-89fa-0845638d2418)
 
 1) the first step for the payload is the return address, instead of using the absolute beginning of the buffer, I have decided to use the address x7fffffffdbe0 as it is close to the start, meaning that it is less susceptible to errors and will guarantee redirection to the NOP sled. Next, we need our shell code, you can find shellcode online easily, an example is https://www.exploit-db.com/exploits/46907
-2) 
+   
 > [!WARNING]  
 > Not all online shell codes work, you might have to try a couple of different ones. Also, ensure that the shell code is specific to your computer architecture. Most of the time it will be x64/x68_64!
 
