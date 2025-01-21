@@ -10,6 +10,8 @@ tags:
 
 ## Introduction
 
+## Inspection using gdb/gef
+
 We can begin this buffer overflow task by inspecting the executable. For this, I will be using GDB with the GEF extension. Viewing the functions defined within the program, it is vulnerable as it uses the outdated strycpy function and is susceptible to buffer overflow attacks.
 
 ![image](https://github.com/user-attachments/assets/8e6e163e-af5b-4078-937e-446ebb14f79a)
@@ -30,4 +32,23 @@ Now we can begin to generate our exploit, for this, we will need a Nopsled, shel
 
 ![image](https://github.com/user-attachments/assets/a01eb897-6c97-44a7-a31e-a9c5292a2e25)
 
+![image](https://github.com/user-attachments/assets/56fb0c32-a3b2-4e7b-a560-04adf1c5ed4d)
 
+As we can see, the stack has been overwritten with a bunch of A values, using the command " x/24wx $rsp" we can view the top of the stack to find where the buffer begins. From this image, we can see that it begins at 0x7fffffffdb60.
+
+
+## Crafting the payload
+
+![image](https://github.com/user-attachments/assets/a13e976c-f8c4-4fa4-89fa-0845638d2418)
+
+1) the first step for the payload is the return address, instead of using the absolute beginning of the buffer, I have decided to use the address x7fffffffdbe0 as it is close to the start, meaning that it is less susceptible to errors and will guarantee redirection to the NOP sled. Next, we need our shell code, you can find shellcode online easily, an example is https://www.exploit-db.com/exploits/46907
+
+2) Secondly we need a NOP sled, which consists of multiple x90 NO-OP instructions that smoothly redirect to our shellcode, the length of our NOP sled is (buffer_size - length(shellcode)). Finally putting this together and saving it to a file we get:
+
+![image](https://github.com/user-attachments/assets/9e37b290-0dcc-40bd-808d-419587862523)
+
+![image](https://github.com/user-attachments/assets/02624359-6119-4354-87e0-d0924d7bd33e)
+
+![image](https://github.com/user-attachments/assets/0ff2afc6-430d-4c09-bb36-4cd5d17121d7)
+
+Now we have successfully exploited the buffer and spawned a shell.
