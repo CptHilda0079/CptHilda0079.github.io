@@ -106,7 +106,7 @@ From,
 Agent C
 ```
 ## Image Forensics
-This tells us that there is a password stored inside the image, to retrieve this we can use the Binwalker tool
+This tells us that there is a password stored inside the image, to retrieve this we can use the Binwalk tool to extract hidden data within images
 ```
 └─$ binwalk cute-alien.jpg
 /usr/lib/python3/dist-packages/binwalk/core/magic.py:431: SyntaxWarning: invalid escape sequence '\.'
@@ -131,7 +131,7 @@ Ah, we have found the embedded image. We can extract this with the -e flag
 ```
 └─$ binwalk -e cutie.png
 ```
-Now we can change our directly and view the hidden files' content
+Now we can change our directory to our extracted file and view the hidden content
 ```
 └─$ cd _cutie.png.extracted/; ls -la
 total 324
@@ -145,11 +145,11 @@ drwxr-xr-x 3 ben ben   4096 Jan  7 18:09 ..
 └─$ file 8702.zip
 8702.zip: Zip archive data, at least v5.1 to extract, compression method=AES Encrypted
 ```
-We have a zlip file, however it is password protected. We can use John to try to crack the hash for the file. Firstly we will convert the zip file into a hash:
+We have a zlip file, however it is password protected. We can use John to try to crack the hash for the file. Firstly we will convert the zip file into a hash which can then be loaded into john for cracking:
 ```
 └─$ zip2john 8702.zip > zippedzip.txt
 ```
-Then we can now use John to crack the hash. This may require sudo privileges.
+Then we can now use John to crack the hash. This may require sudo privileges and will use up a significant amount of processing power.
 ```
 └─$ sudo john --format=zip zippedzip.txt
 [sudo] password for ben:
@@ -164,7 +164,7 @@ Proceeding with wordlist:/usr/share/john/password.lst
 alien            (8702.zip/To_agentR.txt)
 1g 0:00:00:00 DONE 2/3 (2025-01-07 18:14) 4.000g/s 279600p/s 279600c/s 279600C/s 123456..skyline!
 ```
-The password we have found is "alien". We can now open our password-protected zip file.
+The password we have found is "alien". We can now open our password-protected zip file. For this I am using 7-zip, however any zip tool will work.
 ```
 └─$ 7z x 8702.zip -palien
 7-Zip 24.07 (x64) : Copyright (c) 1999-2024 Igor Pavlov : 2024-06-19
@@ -188,18 +188,18 @@ We need to send the picture to 'QXJlYTUx' as soon as possible!
 By,
 Agent R
 ```
-This looks like a base64 ciphertext
+This looks like a base64 ciphertext, we can decode this using base64 -d 
 ```
 └─$ echo "QXJlYTUx" | base64 -d
 Area51
 ```
-Area51 is our password. We can now look into the alien picture.
+Area51 is our password. We can now look into the alien picture using steghide.
 ```
 └─$ steghide extract -sf cute-alien.jpg
 Enter passphrase:
 wrote extracted data to "message.txt". 
 ```
-Viewing message.txt:
+Viewing the message.txt file:
 ```
 └─$ cat message.txt
 Hi james,
@@ -209,7 +209,7 @@ Your buddy,
 chris 
 ```
 ## User Flag
-We now have a user and password combination for user Chris, we will now log in to SSH with these credentials
+We now have a user and password combination for user Chris, we will now try to log in to SSH with these credentials. This will give us a foothold into the system, which we can later find vulnerabilities and escalate our privileges
 ```
 james@agent-sudo:~$ ls -la
 total 80
