@@ -24,6 +24,10 @@ We begin by finding the offset of the RIP. We do this by generating a pattern us
 then we view the frame information and use the pattern offset function to find the offset of the overwritten RIP.
 In this case, we have yielded a value of 264 bytes. This means that our buffer is 256 bytes (264 bytes - 8 bytes for RBP) long.
 
-Now we can begin to generate our exploit, for this, we will need a Nopsled, shellcode and a return value. We can first start by finding our return value. This ideally should be around the start of the buffer. 
+Now we can begin to generate our exploit, for this, we will need a Nopsled, shellcode and a return value. We can first start by finding our return value. This ideally should be around the start of the buffer. We can find this by generating a pattern of "A"s break pointing the last instruction to see where the values are written to on the stack pointer (RSP)
 
-![image](https://github.com/user-attachments/assets/1ca8e842-0d90-4a67-afd2-18b90abbf8bb)
+![image](https://github.com/user-attachments/assets/c3ca6c3c-9669-4d98-8ff4-0ccb063ee6f4)
+
+![image](https://github.com/user-attachments/assets/a01eb897-6c97-44a7-a31e-a9c5292a2e25)
+
+
