@@ -40,10 +40,10 @@ I start by looking at the website.
 
 ![image](https://github.com/user-attachments/assets/1d50c079-dbaa-4a1c-8518-addd4f5604b1)
 
-There is not much going on, so we will start to find other web pages on the website
+There is not much going on, so we will start to find other web pages on the website.
 
 ## Gobuster
-Using Gobuster we can find any hidden directories within the website
+Using Gobuster, we can find any hidden directories within the website
 ```
 └─$ gobuster dir --url http://10.10.133.211/ --wordlist /usr/share/dirbuster/wordlists/directory-list-2.3-small.txt
 ===============================================================
@@ -62,20 +62,20 @@ Starting gobuster in directory enumeration mode
 ===============================================================
 /simple               (Status: 301) [Size: 315] [--> http://10.10.133.211/simple/]
 ```
-We got a hit! Viewing /simple in our browser we are redirected to a new page:
+We got a hit! Viewing /simple in our browser, we are redirected to a new page:
 
 ![image](https://github.com/user-attachments/assets/783d5baa-0c0e-407b-a755-e566832dbef6)
 
-Looking through this page I found the version number of simple.
+Looking through this page, I found the version number to be simple.
 
 ![image](https://github.com/user-attachments/assets/ba14ea98-d4b2-489a-8ac2-e5770d218c33)
 
-Searching "CMS Made Simple version 2.2.8" online, we find https://www.exploit-db.com/exploits/46635 CVE:2019-9053 which allows us to perform an SQL injection.
+When we search online for "CMS Made Simple version 2.2.8," we find https://www.exploit-db.com/exploits/46635 CVE:2019-9053, which allows us to perform an SQL injection.
 
 ![image](https://github.com/user-attachments/assets/36647154-d557-4f60-ab53-7e10a3b01f29)
 
-This indicates that there will be a login page which we will try to find now.
-We can use Gobuster again, however, instead, I tried http://10.10.133.211/simple/login, with no result then http://10.10.133.211/simple/admin, which was successful and redirected me to a login page: 
+This indicates that there will be a login page, which we will try to find now.
+We can use Gobuster again; however, instead, I tried http://10.10.133.211/simple/login, with no result then http://10.10.133.211/simple/admin, which was successful and redirected me to a login page: 
 
 ![image](https://github.com/user-attachments/assets/f9dc964f-ef3a-450b-b133-551aeb6ffdde)
 
