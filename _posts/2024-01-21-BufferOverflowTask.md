@@ -28,7 +28,7 @@ We begin by finding the offset of the RIP. We do this by generating a pattern us
 
 This works by overwriting the RIP with a unique value, which we can query to find the offset. View the frame information and use the pattern offset function to find the offset of the overwritten RIP. In this case, we have yielded a value of 264 bytes. This means that our buffer is 256 bytes (264 bytes - 8 bytes for RBP) in size.
 
-Now we can begin to generate our exploit, for this, we will need a NOP sled, shellcode and a return value. We can first start by finding our return value. This ideally should be around the start of the buffer. We can see this by generating a pattern of "A"s to fill the stack and identify the top/bottom memory addresses. We can breakpoint the last instruction to see where the values are written on the stack pointer (RSP)
+Now we can begin to generate our exploit; we will need a NOP sled, shellcode and a return value. We can first start by finding our return value. This ideally should be around the start of the buffer. We can see this by generating a pattern of "A"s to fill the stack and identify the top/bottom memory addresses. We can breakpoint the last instruction to see where the values are written on the stack pointer (RSP)
 
 ![image](https://github.com/user-attachments/assets/c3ca6c3c-9669-4d98-8ff4-0ccb063ee6f4)
 
@@ -36,11 +36,23 @@ Now we can begin to generate our exploit, for this, we will need a NOP sled, she
 
 ![image](https://github.com/user-attachments/assets/56fb0c32-a3b2-4e7b-a560-04adf1c5ed4d)
 
-As we can see, the stack has been overwritten with a bunch of A values, using the command "x/24wx $rsp" we can view the top of the stack to find where the buffer begins. From this image, we can see that it begins at memory address 0x7fffffffdb60.
+As we can see, the stack has been overwritten with a bunch of A values; using the command "x/24wx $rsp", we can view the top of the stack to find where the buffer begins. From this image, we can see that it begins at memory address 0x7fffffffdb60.
 > [!NOTE]  
 > x/24wx $rsp displays the RSP register as 24 words (4 bytes each) 
 
+## NOP sled and Shellcode
+To construct our payload, we need to begin with a NOP sled. A NOP sled is a sequence
+of NOP (no-operational) instructions used to ”slide” the execution flow to our shellcode
+(?). The NOP instruction is a command that tells the computer to do nothing. Our NOP
+instructions aim to ensure that our exploit does not fail by ensuring that the CPU reaches
+the shellcode. The size of our NOP sled is related to the size of our shellcode. For example,
+if our shellcode is 23 bytes, it must be 129 bytes long (as buffer + RBP = 152 bytes) to
+ensure enough space in the buffer + RBP for our shellcode instructions.
 
+Shellcode
+Shellcode is a set of instructions that executes commands to exploit a vulnerability in a
+program. A basic example of shellcode could execute the /bin/sh binary. If this program is
+misconfigured as SUID, we could execute /bin/sh to get a root shell.
 ## Crafting the payload
 
 ![image](https://github.com/user-attachments/assets/a13e976c-f8c4-4fa4-89fa-0845638d2418)
