@@ -41,12 +41,14 @@ As we can see, the stack has been overwritten with a bunch of A values; using th
 > x/24wx $rsp displays the RSP register as 24 words (4 bytes each) 
 
 ## NOP sled and Shellcode
+
+![image](https://github.com/user-attachments/assets/366e9ac8-ce63-4295-87c1-06827cd27d1d)
+
 To construct our payload, we need to begin with a NOP sled. A NOP sled is a sequence
-of NOP (no-operational) instructions used to ”slide” the execution flow to our shellcode
-(?). The NOP instruction is a command that tells the computer to do nothing. Our NOP
+of NOP (no-operational) instructions used to ”slide” the execution flow to our shellcode. The NOP instruction is a command that tells the computer to do nothing. Our NOP
 instructions aim to ensure that our exploit does not fail by ensuring that the CPU reaches
 the shellcode. The size of our NOP sled is related to the size of our shellcode. For example,
-if our shellcode is 23 bytes, it must be 129 bytes long (as buffer + RBP = 152 bytes) to
+if our shellcode is 23 bytes, it must be 141 bytes long (buffer + RBP = 164 bytes) to
 ensure enough space in the buffer + RBP for our shellcode instructions.
 
 Shellcode
