@@ -57,19 +57,21 @@ Before I ran the exploit, I started a reverse listener using netcat (nc). The co
 ## Lateral Movement
 After gaining access to the default apache system account (www-data), I want to download and run linpeas to find any leaked credentials or vulnerabilities that can be used to gain an account with higher access/functionality.  
 ![dir_user_owns](https://github.com/user-attachments/assets/029cc120-78a1-42e1-b9b9-2d8e7ca87385)
-To do this I need to find a directory that I have permissions to write into. I automated this processes using the command: find . "-type d-user www-data -print | xargs -0 ls -ld"
+To do this I need to find a directory that I have permissions to write into. I automated this processes using the command: find . "-type d-user www-data -print | xargs -0 ls -ld". The directory retured was: "./cache/apache2/mod_cache_disk". Using "ls -ld" I can comfirm that www-data owns this directory and has write permissions.
 
 ## Linpeas
+Once linpeas is downloaded, I run it and look throught the data.
 ![linpeas](https://github.com/user-attachments/assets/8526378c-4f50-45ca-bf35-4ddbd9864ba7)
-![linpeas_bak](https://github.com/user-attachments/assets/be8a9467-c0e3-462c-a9f9-c5bb4c62770a)
+/opt/password.bak is an interesting backup file. Viewing this file I can see that it contains login information for user andre.
 ![password_backup](https://github.com/user-attachments/assets/6b7f2d60-51f7-419e-9b3a-320408b76581)
+This information allows me to now login to user andre through ssh.
 ![andre_ssh](https://github.com/user-attachments/assets/2336eda4-a503-4c2f-88a0-fde0d56971fe)
 
 
 ## Privilage Escalation 
+![Crontab](https://github.com/user-attachments/assets/5d456807-62cc-4f66-8d7b-86d39590f0ea)
 ![privEsc](https://github.com/user-attachments/assets/8c959b48-6341-4b99-aecb-894075369122)
 ![priv_esc](https://github.com/user-attachments/assets/fb6a58d4-cf19-4f74-bdd2-a6429dd7544c)
-![Crontab](https://github.com/user-attachments/assets/5d456807-62cc-4f66-8d7b-86d39590f0ea)
 
 ## Root flag
 ![root_flag](https://github.com/user-attachments/assets/d705dc8e-0e82-481a-8330-f3dcb0697307)
