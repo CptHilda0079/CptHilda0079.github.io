@@ -52,10 +52,12 @@ Once I downloaded the exploit, I changed its permissions using "chmod +x exploit
 After running the script it gave me an "No module named 'term colour'" error. To fix this I used the command "sudo apt python3-termcolour". This allowed me to run the exploit.
 ![exploit_shell](https://github.com/user-attachments/assets/bb9c71d8-4020-464a-ab31-6f92b40f09c9)
 Before I ran the exploit, I started a reverse listener using netcat (nc). The command I used was "nc -lvnp 4444". I ran the script again and successfully gained a shell with user www-data.
+![rev_shell](https://github.com/user-attachments/assets/aee0260e-88e4-4a64-a0e7-fae0062fbbbf)
 
 ## Lateral Movement
+After gaining access to the default apache system account (www-data), I want to download and run linpeas to find any leaked credentials or vulnerabilities that can be used to gain an account with higher access/functionality.  
 ![dir_user_owns](https://github.com/user-attachments/assets/029cc120-78a1-42e1-b9b9-2d8e7ca87385)
-![rev_shell](https://github.com/user-attachments/assets/aee0260e-88e4-4a64-a0e7-fae0062fbbbf)
+To do this I need to find a directory that I have permissions to write into. I automated this processes using the command: find . "-type d-user www-data -print | xargs -0 ls -ld"
 
 ## Linpeas
 ![linpeas](https://github.com/user-attachments/assets/8526378c-4f50-45ca-bf35-4ddbd9864ba7)
