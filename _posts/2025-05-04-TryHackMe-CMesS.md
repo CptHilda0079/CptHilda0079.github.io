@@ -19,14 +19,25 @@ tags:
 
 ##  Nmap scan results
 ![Nmap_Scan](https://github.com/user-attachments/assets/f1e6287b-61a8-49c4-b385-8a1777c7a5a4)
+Our Nmap scan shows that we have an apache website running as well as an open ssh port that we can connect to later; when we have credentials.
+
 
 ## Main webpage
 ![HomePage](https://github.com/user-attachments/assets/599b115e-c83c-46e6-ba64-7841f042cb23)
+Checking out the website on port 80, we have a Gila CMS page. There does not seem to be any visible vulnerabilis here, I can further possible file paths and subdomains. 
 
 ## Domain/Subdomain enumeration
 ![Dirb](https://github.com/user-attachments/assets/f8f67bb0-b3fd-45f4-ad43-775b4779868a)
+
+Using gobuster I find a myriad of file paths. After exploring these paths, I find that /admin page redirects to a login page. Currently I do not have any credentials for this page so we will have to explore further
 ![Subdomain_enum](https://github.com/user-attachments/assets/61596da1-c957-47ce-af84-63839be2b515)
+I used wfuzz to enumerate any possible subdomains, 
 ![dev_subdomain](https://github.com/user-attachments/assets/1ff58949-5329-4469-809a-536f40294cca)
+
+## Admin Panel
+![admin_panel](https://github.com/user-attachments/assets/ffe8492f-0e56-4e57-bb74-37f9db5fcacd)
+![blowfish_hash](https://github.com/user-attachments/assets/6a13ee30-f684-4ca9-9241-6147b08f3afd)
+![cms_version](https://github.com/user-attachments/assets/77b864e4-4a85-47b0-99c4-928785739b40)
 
 
 ## Exploit
@@ -42,17 +53,12 @@ tags:
 ![linpeas](https://github.com/user-attachments/assets/8526378c-4f50-45ca-bf35-4ddbd9864ba7)
 ![linpeas_bak](https://github.com/user-attachments/assets/be8a9467-c0e3-462c-a9f9-c5bb4c62770a)
 ![password_backup](https://github.com/user-attachments/assets/6b7f2d60-51f7-419e-9b3a-320408b76581)
+![andre_ssh](https://github.com/user-attachments/assets/2336eda4-a503-4c2f-88a0-fde0d56971fe)
 
 
 ## Privilage Escalation 
 ![privEsc](https://github.com/user-attachments/assets/8c959b48-6341-4b99-aecb-894075369122)
 ![priv_esc](https://github.com/user-attachments/assets/fb6a58d4-cf19-4f74-bdd2-a6429dd7544c)
-
-
-![admin_panel](https://github.com/user-attachments/assets/ffe8492f-0e56-4e57-bb74-37f9db5fcacd)
-![andre_ssh](https://github.com/user-attachments/assets/2336eda4-a503-4c2f-88a0-fde0d56971fe)
-![blowfish_hash](https://github.com/user-attachments/assets/6a13ee30-f684-4ca9-9241-6147b08f3afd)
-![cms_version](https://github.com/user-attachments/assets/77b864e4-4a85-47b0-99c4-928785739b40)
 ![Crontab](https://github.com/user-attachments/assets/5d456807-62cc-4f66-8d7b-86d39590f0ea)
 
 ## Root flag
