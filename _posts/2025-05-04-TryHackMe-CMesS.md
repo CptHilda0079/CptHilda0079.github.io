@@ -31,10 +31,13 @@ Checking out the website on port 80, we have a Gila CMS page. There does not see
 
 Using gobuster I find a myriad of file paths. After exploring these paths, I find that /admin page redirects to a login page. Currently I do not have any credentials for this page so we will have to explore further
 ![Subdomain_enum](https://github.com/user-attachments/assets/61596da1-c957-47ce-af84-63839be2b515)
-I used wfuzz to enumerate any possible subdomains, 
+
+Before I begin subdomain enumberation, I added cmess.thm to /etc/hosts using the command "sudo tee --append /etc/hosts <<< "<IP> cmess.thm". I used wfuzz to enumerate any possible subdomains, and I get a hit! dev.cmess.thm. After adding this to /etc/hosts and loading it to my browser I get a development page.
 ![dev_subdomain](https://github.com/user-attachments/assets/1ff58949-5329-4469-809a-536f40294cca)
+This development page includes user and password credentials for user andre: andre@cmess : KPFTN_f2yxe% 
 
 ## Admin Panel
+Return
 ![admin_panel](https://github.com/user-attachments/assets/ffe8492f-0e56-4e57-bb74-37f9db5fcacd)
 ![blowfish_hash](https://github.com/user-attachments/assets/6a13ee30-f684-4ca9-9241-6147b08f3afd)
 ![cms_version](https://github.com/user-attachments/assets/77b864e4-4a85-47b0-99c4-928785739b40)
