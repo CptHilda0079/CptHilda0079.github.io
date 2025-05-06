@@ -37,16 +37,21 @@ Before I begin subdomain enumberation, I added cmess.thm to /etc/hosts using the
 This development page includes user and password credentials for user andre: andre@cmess : KPFTN_f2yxe% 
 
 ## Admin Panel
-Return
+Returning back to the login page I can successfully login to the admin page using the given credentials
 ![admin_panel](https://github.com/user-attachments/assets/ffe8492f-0e56-4e57-bb74-37f9db5fcacd)
+Looking around the admin page I find a password in the /admin/users page. This contains a password hash. I copied this hash into https://hashes.com/en/tools/hash_identifier, which returned a blowfish hash type. Unfortunitly this hash type is secure and would not be visable to brute force it.
 ![blowfish_hash](https://github.com/user-attachments/assets/6a13ee30-f684-4ca9-9241-6147b08f3afd)
+On the main page, I am preseneted with a admin panel, exploring further I find a CMS version. This can be queried for any exploits
 ![cms_version](https://github.com/user-attachments/assets/77b864e4-4a85-47b0-99c4-928785739b40)
 
-
 ## Exploit
+Searching online for "CMS version 1.10.9 exploits" I came across https://www.exploit-db.com/exploits/51569. 
 ![exploit_page](https://github.com/user-attachments/assets/b42bafc5-fdb6-402f-9941-13dc83d0b95d)
+Once I downloaded the exploit, I changed its permissions using "chmod +x exploit.py" and ran the script.
 ![exploit_error](https://github.com/user-attachments/assets/a860e263-5c92-4142-9178-e575837724ef)
+After running the script it gave me an "No module named 'term colour'" error. To fix this I used the command "sudo apt python3-termcolour". This allowed me to run the exploit.
 ![exploit_shell](https://github.com/user-attachments/assets/bb9c71d8-4020-464a-ab31-6f92b40f09c9)
+Before I ran the exploit, I started a reverse listener using netcat (nc). The command I used was "nc -lvnp 4444". I ran the script again and successfully gained a shell with user www-data.
 
 ## Lateral Movement
 ![dir_user_owns](https://github.com/user-attachments/assets/029cc120-78a1-42e1-b9b9-2d8e7ca87385)
