@@ -72,8 +72,9 @@ This information allows me to now login to user andre through ssh.
 ![Crontab](https://github.com/user-attachments/assets/5d456807-62cc-4f66-8d7b-86d39590f0ea)
 After searching around the system for priv esc vulnerabilities, I found a suspicious cronjob running. Searching for /tar on GTFO bins https://gtfobins.github.io/gtfobins/tar/ I find this command: "tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh" 
 ![privEsc](https://github.com/user-attachments/assets/8c959b48-6341-4b99-aecb-894075369122)
-I can exploit this by changing directory to /home/andre/backup and creating a file called shell.sh. This program contains code that 
+I can exploit this by changing directory to /home/andre/backup and creating a file called shell.sh. This program contains code that copies bash into a temp location then gives the tmp/bash suid permissions. I then gave the file executable permission using "chmod +x shell.sh" and used the commands given by gtfobins.
 ![priv_esc](https://github.com/user-attachments/assets/fb6a58d4-cf19-4f74-bdd2-a6429dd7544c)
+After waiting 1-2 minuites for the cronjob to execute, a file called /bash (red) should spawn in the /tmp directory. All that is left to do now is to run the file using "./bash -p". This, if successful, should invoke a root shell.
 
 ## Root flag
 ![root_flag](https://github.com/user-attachments/assets/d705dc8e-0e82-481a-8330-f3dcb0697307)
