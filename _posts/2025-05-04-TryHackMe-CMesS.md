@@ -10,26 +10,31 @@ tags:
 ---
 ## Table of Contents
 
-1. [Introduction](#introduction)
+1. [Introduction](#Introduction)
 2. [Nmap Scan Results](#Nmap_Scan_Results)
-3. [Enumerating HTTP](#Enumerating_HTTP)
-4. [Privilege Escalation](#Privilege_Escalation)
-5. [Root Flag](#Root_Flag)
-6. [Conclusion](#Conclusion)
+3. [Main Webpage](#Main_Webpage)
+4. [Domain/Subdomain Enumeration](#Domain/Subdomain_Enumeration)
+5. [Admin Panel](#Admin_Panel)
+6. [Exploit](#Exploit)
+7. [Lateral Movement](#Lateral_Movement)
+8. [Linpeas](#Linpeas)
+9. [Privilege Escalation](#Privilege_Escalation)
+10. [Root Flag](#Root_Flag)
 
 ## Introduction
+Can you root this Gila CMS box?
 
-##  Nmap scan results
+##  Nmap Scan Results
 ![Nmap_Scan](https://github.com/user-attachments/assets/f1e6287b-61a8-49c4-b385-8a1777c7a5a4)
 
 For my Nmap scan, I used the -A flag, which includes the following commands: OS detection (-O), Version detection (-sV), Script scanning (-sC, using default NSE scripts) and Traceroute. Analysing the results, I see that the host has an Apache website running and an open SSH port that we can connect to later, when we have credentials. 
 
-## Main webpage
+## Main Webpage
 ![HomePage](https://github.com/user-attachments/assets/599b115e-c83c-46e6-ba64-7841f042cb23)
 
 Checking out the website on port 80 (http), we have a Gila CMS page. There is no visible vulnerability here, I can further explore possible file paths and subdomains to find further information. 
 
-## Domain/Subdomain enumeration
+## Domain/Subdomain Enumeration
 ![Dirb](https://github.com/user-attachments/assets/f8f67bb0-b3fd-45f4-ad43-775b4779868a)
 
 To enumerate file paths, I use Gobuster with a standard directory (dir) scan. The Gobuster results yield a myriad of file paths. After exploring these paths, I found that the /admin page redirects to a login page. I do not have any credentials for this page, so we will have to explore further.
@@ -103,7 +108,7 @@ I can exploit this by changing the directory to /home/andre/backup and creating 
 
 After waiting 1-2 minutes for the cronjob to execute, a file called /bash (red) should spawn in the /tmp directory. All that is left to do now is to run the file using "./bash -p". This, if successful, should invoke a root shell.
 
-## Root flag
+## Root Flag
 ![root_flag](https://github.com/user-attachments/assets/d705dc8e-0e82-481a-8330-f3dcb0697307)
 
 Success!
