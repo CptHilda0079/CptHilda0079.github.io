@@ -22,7 +22,7 @@ tags:
 10. [Root Flag](#Root_Flag)
 
 ## Introduction
-Can you root this Gila CMS box?
+https://tryhackme.com/room/cmess -Can you root this Gila CMS box?
 
 ##  Nmap Scan Results
 ![Nmap_Scan](https://github.com/user-attachments/assets/f1e6287b-61a8-49c4-b385-8a1777c7a5a4)
