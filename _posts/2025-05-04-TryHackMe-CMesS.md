@@ -20,17 +20,17 @@ tags:
 ##  Nmap scan results
 ![Nmap_Scan](https://github.com/user-attachments/assets/f1e6287b-61a8-49c4-b385-8a1777c7a5a4)
 
-My Nmap scan shows that I have an Apache website running and an open SSH port that we can connect to later, when we have credentials.
+For My Nmap scan, I used the -A flag, which includes the following commands: OS detection (-O), Version detection (-sV), Script scanning (-sC, using default NSE scripts) and Traceroute. Analysing the results, I see that the host has an Apache website running and an open SSH port that we can connect to later, when we have credentials. 
 
 ## Main webpage
 ![HomePage](https://github.com/user-attachments/assets/599b115e-c83c-46e6-ba64-7841f042cb23)
 
-Checking out the website on port 80, we have a Gila CMS page. There does not seem to be any visible vulnerability here, I can further explore  possible file paths and subdomains. 
+Checking out the website on port 80 (http), we have a Gila CMS page. There does not seem to be any visible vulnerability here, I can further explore possible file paths and subdomains to find further information. 
 
 ## Domain/Subdomain enumeration
 ![Dirb](https://github.com/user-attachments/assets/f8f67bb0-b3fd-45f4-ad43-775b4779868a)
 
-Using gobuster, I find a myriad of file paths. After exploring these paths, I find that the /admin page redirects to a login page. I do not have any credentials for this page, so we will have to explore further.
+To enumerate filepaths I use gobuster with a standard directory (dir) scan. From the gobuster results I find a myriad of file paths. After exploring these paths, I find that the /admin page redirects to a login page. I do not have any credentials for this page, so we will have to explore further.
 
 ![Subdomain_enum](https://github.com/user-attachments/assets/61596da1-c957-47ce-af84-63839be2b515)
 
@@ -38,20 +38,20 @@ Before I begin subdomain enumeration, I added cmess.thm to /etc/hosts using the 
 
 ![dev_subdomain](https://github.com/user-attachments/assets/1ff58949-5329-4469-809a-536f40294cca)
 
-This development page includes user and password credentials for user andre: andre@cmess: KPFTN_f2yxe%
+This development page includes user and password credentials for user andre: andre@cmess: KPFTN_f2yxe%. I can use this information to login to the /admin login page.
 
 ## Admin Panel
-Returning to the login page, I can successfully log in to the admin page using the given credentials
-
 ![admin_panel](https://github.com/user-attachments/assets/ffe8492f-0e56-4e57-bb74-37f9db5fcacd)
 
-Looking around the admin page, I find a password on the /admin/users page. This contains a password hash. I copied this hash into https://hashes.com/en/tools/hash_identifier, which returned a Blowfish hash type. Unfortunately, this hash type is secure and would not be vulnerable to brute force it.
+After successfully logging into the cms, I am redirected to a admin dashboard.
 
 ![blowfish_hash](https://github.com/user-attachments/assets/6a13ee30-f684-4ca9-9241-6147b08f3afd)
 
-On the main page, I am presented with an admin panel. Exploring further, I find a CMS version. This can be queried for any exploits.
+Looking around the admin page, I find a password on the /admin/users page. This contains a password hash. I copied this hash into https://hashes.com/en/tools/hash_identifier, which returned a Blowfish hash type. Unfortunately, this hash type is secure and would not be vulnerable to brute force it.
 
 ![cms_version](https://github.com/user-attachments/assets/77b864e4-4a85-47b0-99c4-928785739b40)
+
+On the main page, I am presented with an admin panel. Exploring further, I find a CMS version. This can be queried for any exploits.
 
 ## Exploit
 Searching online for "CMS version 1.10.9 exploits", I came across https://www.exploit-db.com/exploits/51569. 
