@@ -43,9 +43,9 @@ To enumerate file paths, I use Gobuster with a standard directory (dir) scan. Th
 
 Before I begin subdomain enumeration, I added cmess.thm to /etc/hosts using the command "sudo tee --append /etc/hosts <<< "<IP> cmess.thm". I used wfuzz to enumerate any possible subdomains, and I got a hit! dev.cmess.thm. I get a development page after adding this to /etc/hosts and loading it into my browser.
 
-![dev_subdomain](https://github.com/user-attachments/assets/1ff58949-5329-4469-809a-536f40294cca)
+![support_CMesS](https://github.com/user-attachments/assets/6f61f131-9453-4121-9fe7-03dab9f25926)
 
-This development page includes user and password credentials for user andre: andre@cmess: KPFTN_f2yxe%. I can use this information to log in to the admin login page.
+This development page includes user and password credentials for user andre: andre@cmess. I can use this information to log in to the admin login page.
 
 ## Admin Panel
 ![admin_panel](https://github.com/user-attachments/assets/ffe8492f-0e56-4e57-bb74-37f9db5fcacd)
@@ -89,7 +89,7 @@ To download Linpeas onto the victim machine, I set up a basic HTTP server on my 
 
 /opt/password.bak is an interesting backup file. Viewing this file, I can see that it contains login information for user Andre. I can use this information to gain an interactive shell.
 
-![password_backup](https://github.com/user-attachments/assets/6b7f2d60-51f7-419e-9b3a-320408b76581)
+![password_bak](https://github.com/user-attachments/assets/87c1e2ee-fcbf-478e-b270-352ce0f20875)
 
 This information allows me to now log in to user andre through SSH on port 22.
 
@@ -109,6 +109,6 @@ I can exploit this by changing the directory to /home/andre/backup and creating 
 After waiting 1-2 minutes for the cronjob to execute, a file called /bash (red) should spawn in the /tmp directory. All that is left to do now is to run the file using "./bash -p". This, if successful, should invoke a root shell.
 
 ## Root Flag
-![root_flag](https://github.com/user-attachments/assets/d705dc8e-0e82-481a-8330-f3dcb0697307)
+![root_flag](https://github.com/user-attachments/assets/ead69590-324b-4803-9346-b819006bf4e8)
 
 Success!
