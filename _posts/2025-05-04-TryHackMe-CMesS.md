@@ -13,9 +13,9 @@ tags:
 1. [Introduction](#introduction)
 2. [Nmap Scan Results](#Nmap_Scan_Results)
 3. [Enumerating HTTP](#Enumerating_HTTP)
-6. [Privilege Escalation](#Privilege_Escalation)
-7. [Root Flag](#Root_Flag)
-9. [Conclusion](#Conclusion)
+4. [Privilege Escalation](#Privilege_Escalation)
+5. [Root Flag](#Root_Flag)
+6. [Conclusion](#Conclusion)
 
 ## Introduction
 
