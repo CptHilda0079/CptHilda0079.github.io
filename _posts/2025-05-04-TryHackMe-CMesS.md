@@ -22,6 +22,8 @@ tags:
 10. [Root Flag](#Root_Flag)
 
 ## Introduction
+![Capture](https://github.com/user-attachments/assets/0ad2c03a-f345-4f42-9637-e379685e8592)
+
 https://tryhackme.com/room/cmess -Can you root this Gila CMS box?
 
 ##  Nmap Scan Results
