@@ -24,7 +24,6 @@ tags:
 ![Screenshot from 2025-05-05 23-21-31](https://github.com/user-attachments/assets/90790b8f-67eb-43ef-9bd5-c2fe8597d143)
 ![Screenshot from 2025-05-05 20-51-14](https://github.com/user-attachments/assets/eb96f031-a7db-4b40-868b-ccb7d1261c0e)
 ![Screenshot from 2025-05-05 20-13-42](https://github.com/user-attachments/assets/118d9e0a-9974-48d5-a2f0-a95cf0373b20)
-![Screenshot from 2025-05-05 19-39-02](https://github.com/user-attachments/assets/dcf769f6-d927-4793-a10c-342a67ff627e)
 ![Screenshot from 2025-05-05 18-36-05](https://github.com/user-attachments/assets/9292e912-e69a-4d09-8732-3ce1409faea1)
 ![Screenshot from 2025-05-05 14-40-34](https://github.com/user-attachments/assets/3f2d4daf-73e7-415d-91dc-821f3b51403d)
 ![Screenshot from 2025-05-05 14-40-20](https://github.com/user-attachments/assets/6922904c-4d61-4b65-a36e-9ec909b3faf0)
