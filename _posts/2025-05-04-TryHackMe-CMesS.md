@@ -54,11 +54,9 @@ Looking around the admin page, I find a password on the /admin/users page. This 
 On the main page, I am presented with an admin panel. Exploring further, I find a CMS version. This can be queried for any exploits.
 
 ## Exploit
-Searching online for "CMS version 1.10.9 exploits", I came across https://www.exploit-db.com/exploits/51569. 
-
 ![exploit_page](https://github.com/user-attachments/assets/b42bafc5-fdb6-402f-9941-13dc83d0b95d)
 
-Once I downloaded the exploit, I changed its permissions using "chmod +x exploit.py" and ran the script.
+Searching online for "CMS version 1.10.9 exploits", I came across https://www.exploit-db.com/exploits/51569. Once I downloaded the exploit, I changed its permissions using "chmod +x exploit.py" and ran the script.
 
 ![exploit_error](https://github.com/user-attachments/assets/a860e263-5c92-4142-9178-e575837724ef)
 
@@ -66,23 +64,23 @@ After running the script, it gave me a "No module named 'term colour'" error. To
 
 ![exploit_shell](https://github.com/user-attachments/assets/bb9c71d8-4020-464a-ab31-6f92b40f09c9)
 
-Before I ran the exploit, I started a reverse listener using netcat (nc). The command I used was "nc -lvnp 4444". I ran the script again and successfully gained a shell with user www-data.
+Before I ran the exploit, I started a reverse listener using netcat (nc). The command I used was "nc -lvnp 4444" in a seperate tab to recieve the reverse shell once uploaded. I ran the script again and successfully gained a shell with user: www-data.
 
 ![rev_shell](https://github.com/user-attachments/assets/aee0260e-88e4-4a64-a0e7-fae0062fbbbf)
 
 ## Lateral Movement
-After gaining access to the default Apache system account (www-data), I want to download and run Linpeas to find any leaked credentials or vulnerabilities that can be used to gain an account with higher access/functionality.  
+After gaining access to the default Apache system account (www-data) with a read shell, I want to download and run Linpeas to find any leaked credentials or vulnerabilities that can be used to gain an account with higher access/functionality.  
 
 ![dir_user_owns](https://github.com/user-attachments/assets/029cc120-78a1-42e1-b9b9-2d8e7ca87385)
 
 To do this, I need to find a directory that I have permission to write into. I automated this process using the command: find . "-type d-user www-data -print | xargs -0 ls -ld". The directory returned was: "./cache/apache2/mod_cache_disk". Using "ls -ld," I can confirm that www-data owns this directory and has write permissions.
 
 ## Linpeas
-Once Linpeas is downloaded, I run it and look through the data.
+To download Linpeas onto the victim machine, I set up a basic http server on my local machine, and donwloaded it on the machine using wget. This is better described on https://github.com/peass-ng/PEASS-ng/blob/master/linPEAS/README.md. Once Linpeas is downloaded, I run it and look through the data.
 
 ![linpeas](https://github.com/user-attachments/assets/8526378c-4f50-45ca-bf35-4ddbd9864ba7)
 
-/opt/password.bak is an interesting backup file. Viewing this file, I can see that it contains login information for user Andre.
+/opt/password.bak is an interesting backup file. Viewing this file, I can see that it contains login information for user Andre. I can use this information to gain an interactive shell.
 
 ![password_backup](https://github.com/user-attachments/assets/6b7f2d60-51f7-419e-9b3a-320408b76581)
 
