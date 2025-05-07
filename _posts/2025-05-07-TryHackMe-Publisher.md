@@ -1,3 +1,26 @@
+---
+title: "TryHackMe: Publisher"
+categories:
+  - TryHackMe
+tags:
+  - pwn
+  - root
+---
+## Table of Contents
+
+1. [Introduction](#Introduction)
+2. [Nmap Scan Results](#Nmap_Scan_Results)
+3. [Main Webpage](#Main_Webpage)
+4. [Domain/Subdomain Enumeration](#Domain/Subdomain_Enumeration)
+5. [Admin Panel](#Admin_Panel)
+6. [Exploit](#Exploit)
+7. [Lateral Movement](#Lateral_Movement)
+8. [Linpeas](#Linpeas)
+9. [Privilege Escalation](#Privilege_Escalation)
+10. [Root Flag](#Root_Flag)
+
+## Introduction
+
 ![Screenshot from 2025-05-05 23-21-31](https://github.com/user-attachments/assets/90790b8f-67eb-43ef-9bd5-c2fe8597d143)
 ![Screenshot from 2025-05-05 20-51-14](https://github.com/user-attachments/assets/eb96f031-a7db-4b40-868b-ccb7d1261c0e)
 ![Screenshot from 2025-05-05 20-13-42](https://github.com/user-attachments/assets/118d9e0a-9974-48d5-a2f0-a95cf0373b20)
