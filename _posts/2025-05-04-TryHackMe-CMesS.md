@@ -3,7 +3,9 @@ title: "TryHackMe: CMesS"
 categories:
   - TryHackMe
 tags:
+  - cms
   - pwn
+  - cronjob
   - root
 ---
 ## Table of Contents
@@ -20,17 +22,17 @@ tags:
 ##  Nmap scan results
 ![Nmap_Scan](https://github.com/user-attachments/assets/f1e6287b-61a8-49c4-b385-8a1777c7a5a4)
 
-For My Nmap scan, I used the -A flag, which includes the following commands: OS detection (-O), Version detection (-sV), Script scanning (-sC, using default NSE scripts) and Traceroute. Analysing the results, I see that the host has an Apache website running and an open SSH port that we can connect to later, when we have credentials. 
+For my Nmap scan, I used the -A flag, which includes the following commands: OS detection (-O), Version detection (-sV), Script scanning (-sC, using default NSE scripts) and Traceroute. Analysing the results, I see that the host has an Apache website running and an open SSH port that we can connect to later, when we have credentials. 
 
 ## Main webpage
 ![HomePage](https://github.com/user-attachments/assets/599b115e-c83c-46e6-ba64-7841f042cb23)
 
-Checking out the website on port 80 (http), we have a Gila CMS page. There does not seem to be any visible vulnerability here, I can further explore possible file paths and subdomains to find further information. 
+Checking out the website on port 80 (http), we have a Gila CMS page. There is no visible vulnerability here, I can further explore possible file paths and subdomains to find further information. 
 
 ## Domain/Subdomain enumeration
 ![Dirb](https://github.com/user-attachments/assets/f8f67bb0-b3fd-45f4-ad43-775b4779868a)
 
-To enumerate filepaths I use gobuster with a standard directory (dir) scan. From the gobuster results I find a myriad of file paths. After exploring these paths, I find that the /admin page redirects to a login page. I do not have any credentials for this page, so we will have to explore further.
+To enumerate file paths, I use Gobuster with a standard directory (dir) scan. The Gobuster results yield a myriad of file paths. After exploring these paths, I found that the /admin page redirects to a login page. I do not have any credentials for this page, so we will have to explore further.
 
 ![Subdomain_enum](https://github.com/user-attachments/assets/61596da1-c957-47ce-af84-63839be2b515)
 
@@ -38,12 +40,12 @@ Before I begin subdomain enumeration, I added cmess.thm to /etc/hosts using the 
 
 ![dev_subdomain](https://github.com/user-attachments/assets/1ff58949-5329-4469-809a-536f40294cca)
 
-This development page includes user and password credentials for user andre: andre@cmess: KPFTN_f2yxe%. I can use this information to login to the /admin login page.
+This development page includes user and password credentials for user andre: andre@cmess: KPFTN_f2yxe%. I can use this information to log in to the admin login page.
 
 ## Admin Panel
 ![admin_panel](https://github.com/user-attachments/assets/ffe8492f-0e56-4e57-bb74-37f9db5fcacd)
 
-After successfully logging into the cms, I am redirected to a admin dashboard.
+After successfully logging into the cms, I am redirected to an admin dashboard.
 
 ![blowfish_hash](https://github.com/user-attachments/assets/6a13ee30-f684-4ca9-9241-6147b08f3afd)
 
@@ -76,7 +78,7 @@ After gaining access to the default Apache system account (www-data) with a read
 To do this, I need to find a directory that I have permission to write into. I automated this process using the command: find . "-type d-user www-data -print | xargs -0 ls -ld". The directory returned was: "./cache/apache2/mod_cache_disk". Using "ls -ld," I can confirm that www-data owns this directory and has write permissions.
 
 ## Linpeas
-To download Linpeas onto the victim machine, I set up a basic http server on my local machine, and donwloaded it on the machine using wget. This is better described on https://github.com/peass-ng/PEASS-ng/blob/master/linPEAS/README.md. Once Linpeas is downloaded, I run it and look through the data.
+To download Linpeas onto the victim machine, I set up a basic HTTP server on my local machine and downloaded it on the machine using wget. This is better described on https://github.com/peass-ng/PEASS-ng/blob/master/linPEAS/README.md. Once Linpeas is downloaded, I run it and look through the data.
 
 ![linpeas](https://github.com/user-attachments/assets/8526378c-4f50-45ca-bf35-4ddbd9864ba7)
 
@@ -84,14 +86,14 @@ To download Linpeas onto the victim machine, I set up a basic http server on my 
 
 ![password_backup](https://github.com/user-attachments/assets/6b7f2d60-51f7-419e-9b3a-320408b76581)
 
-This information allows me to now log in to user andre through SSH.
+This information allows me to now log in to user andre through SSH on port 22.
 
 ![andre_ssh](https://github.com/user-attachments/assets/2336eda4-a503-4c2f-88a0-fde0d56971fe)
 
 ## Privilege Escalation 
 ![Crontab](https://github.com/user-attachments/assets/5d456807-62cc-4f66-8d7b-86d39590f0ea)
 
-After searching around the system for privilege esc vulnerabilities, I found a suspicious cron job running. Searching for /tar on GTFO bins https://gtfobins.github.io/gtfobins/tar/ I find this command: "tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh" 
+After searching around the system for privilege esc vulnerabilities, I found a suspicious cron job running. Searching for /tar on GTFO bins https://gtfobins.github.io/gtfobins/tar/ I find this command: "tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh".
 
 ![privEsc](https://github.com/user-attachments/assets/8c959b48-6341-4b99-aecb-894075369122)
 
@@ -103,3 +105,5 @@ After waiting 1-2 minutes for the cronjob to execute, a file called /bash (red) 
 
 ## Root flag
 ![root_flag](https://github.com/user-attachments/assets/d705dc8e-0e82-481a-8330-f3dcb0697307)
+
+Success!
