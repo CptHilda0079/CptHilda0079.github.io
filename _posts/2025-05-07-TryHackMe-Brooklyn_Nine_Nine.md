@@ -1,3 +1,26 @@
+---
+title: "TryHackMe: Brooklyn Nine-Nine"
+categories:
+  - TryHackMe
+tags:
+  - pwn
+  - root
+---
+## Table of Contents
+
+1. [Introduction](#Introduction)
+2. [Nmap Scan Results](#Nmap_Scan_Results)
+3. [Main Webpage](#Main_Webpage)
+4. [Domain/Subdomain Enumeration](#Domain/Subdomain_Enumeration)
+5. [Admin Panel](#Admin_Panel)
+6. [Exploit](#Exploit)
+7. [Lateral Movement](#Lateral_Movement)
+8. [Linpeas](#Linpeas)
+9. [Privilege Escalation](#Privilege_Escalation)
+10. [Root Flag](#Root_Flag)
+
+## Introduction
+
 ![GTFO_bins_less](https://github.com/user-attachments/assets/2dc52e0f-5a2b-4290-911e-89e8ddbda0c9)
 ![Root_flag](https://github.com/user-attachments/assets/e49af67f-4a0f-47aa-8bbd-0429beb3d93a)
 ![sudo_l](https://github.com/user-attachments/assets/24e5eb27-ffba-40c2-9750-6a1e6b5d35c2)
