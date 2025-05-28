@@ -1,14 +1,11 @@
----
-title: "Exercise: Buffer overflow task"
-tags:
-  - buffer overflow
----
-## Table of Contents
+## What is a buffer overflow?
+A buffer overflow is a memory corruption vulnerability in which a buffer allows more data than its intended storage capacity. As a result, when data is written to the buffer, a portion of it is overwritten in adjacent memory locations. This allows attackers to change the execution path of the program, run arbitrary code or access private files. They can achieve this by intentionally feeding the buffer malicious data, which gets overwritten in memory areas with executable code. The most common example is an attack to overwrite the Instruction Pointer (IP) register to point to an exploit payload, which can gain access to the system.
 
-1. [Introduction](#introduction)
-2. [Inspecting using GDB-GEF](#Nmap_Scan_Results)
+I have uploaded one of my university reports to understand buffer overflows and protection mechanisms better:
+[Download the PDF](/files/Cyber_Systems_Architecture_Assignment_1-1.pdf)
 
-## Introduction
+The vulnerable file can be downloaded here:
+[Download the vulnerable program](/files/day0B_ex1)
 
 ## Inspection using gdb/gef
 
@@ -59,12 +56,12 @@ misconfigured as SUID, we could execute /bin/sh to get a root shell.
 
 ![image](https://github.com/user-attachments/assets/a13e976c-f8c4-4fa4-89fa-0845638d2418)
 
-1) the first step for the payload is the return address, instead of using the absolute beginning of the buffer, I have decided to use the address x7fffffffdbe0 as it is close to the start, meaning that it is less susceptible to errors and will guarantee redirection to the NOP sled. Next, we need our shell code; you can find shellcode online easily; an example is https://www.exploit-db.com/exploits/46907
+1) The first step for the payload is the return address. Instead of using the absolute beginning of the buffer, I have decided to use the address x7fffffffdbe0 as it is close to the start, meaning that it is less susceptible to errors and will guarantee redirection to the NOP sled. Next, we need our shell code; you can find shellcode online easily; an example is https://www.exploit-db.com/exploits/46907
    
 > [!WARNING]  
 > Not all online shell codes work; you might have to try several different ones. Also, please ensure the shell code is specific to your computer architecture. Most of the time, it will be x64/x68_64!
 
-2) Secondly we need a NOP sled, which consists of multiple x90 NO-OP instructions that smoothly redirect the return address value to our shellcode, the length of our NOP sled is (buffer_size - length(shellcode)). Finally, by putting this together and saving it to a file, we get the following:
+2) Secondly, we need a NOP sled, which consists of multiple x90 NO-OP instructions that smoothly redirect the return address value to our shellcode; the length of our NOP sled is (buffer_size - length(shellcode)). Finally, by putting this together and saving it to a file, we get the following:
 
 ![image](https://github.com/user-attachments/assets/9e37b290-0dcc-40bd-808d-419587862523)
 
